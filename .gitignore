@@ -1,0 +1,12 @@
+venv
+__pycache__
+llms/*
+voices/*
+temp/*
+llms/*
+main.log
+userVoice.*
+aiVoice.*
+curlResponse.txt
+response.txt
+chatHistory.txt
