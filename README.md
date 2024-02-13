@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/waldyr/Sublime-Installer/blob/master/Echo.webp" alt="Emoji Dryad, Echo"/>
+  <img height=auto width=25% src="https://github.com/JohnnySn0w/Echo/blob/master/Echo.webp?medium" alt="Emoji Dryad, Echo"/>
 </p>
 
 
