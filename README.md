@@ -1,4 +1,4 @@
-# Echo - an effort at getting AMD support for all sections of a completely-local-compute, AI assistant
+# Echo - full AMD support, completely-local-compute, AI assistant
 
 There are an incredible plethora of current AI tools, some very high level, like transformers.
 
