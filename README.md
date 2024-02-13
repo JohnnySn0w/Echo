@@ -20,13 +20,13 @@ Kickoff the building of the various components with
 ```
 
 This script:
--installs all the python libs I have in my project venv. No guarantees this will work for you, have not even tested if most of them are necessary.
+- installs all the python libs I have in my project venv. No guarantees this will work for you, have not even tested if most of them are necessary.
 ```python
 pip install onnxruntime-gpu huggingface-hub optimum precise-runner llm piper-tts transformers datasets evaluate jiwer     
 pip install --upgrade accelerate 
 ```
--makes directories that will need to be **manually** filled by you with appropriate models
--builds the whisper.cpp and llama.cpp models. For llama.cpp you will probably want to either rebuild with clblast flags if your gpu isn't on the rocm compat list. Check [here](https://docs.amd.com/en/docs-5.4.3/release/gpu_os_support.html#gpu-support-table) for a comprehensive list of gpus rocm supports. Use the llvm target that you need, and modify the buildAMD.sh script to get that building for your gpu.
+- makes directories that will need to be **manually** filled by you with appropriate models
+- builds the whisper.cpp and llama.cpp models. For llama.cpp you will probably want to either rebuild with clblast flags if your gpu isn't on the rocm compat list. Check [here](https://docs.amd.com/en/docs-5.4.3/release/gpu_os_support.html#gpu-support-table) for a comprehensive list of gpus rocm supports. Use the llvm target that you need, and modify the buildAMD.sh script to get that building for your gpu.
 
 Get into the venv
 ```sh
@@ -50,5 +50,5 @@ The main thing here is you need something that will gen a 16000hz audio input to
 That's it!
 
 
-#Bugs
--currently, I have noticed that if the microphone and the output are hooked to the same interface (like a Scarlett DAC) then there's a cutoff/delay at the beginning of the ai speech output. Not sure what's happening there since Pulse should handle that sort of thing, and Discord works fine.
+## Bugs
+- currently, I have noticed that if the microphone and the output are hooked to the same interface (like a Scarlett DAC) then there's a cutoff/delay at the beginning of the ai speech output. Not sure what's happening there since Pulse should handle that sort of thing, and Discord works fine.
