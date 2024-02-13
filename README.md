@@ -3,7 +3,7 @@
 </p>
 
 <div height=auto width=2em>
-  <h1 align="center">— Echo —<p>An AMD-first support, completely-local-compute, AI assistant</p></h1>
+  <h1 align="center">— Echo —<p>An AMD-first, completely-local-compute, AI assistant</p></h1>
 </div>
 
 There is incredible plethora of current AI tools, some very high level.
@@ -12,7 +12,7 @@ Many have, at most, rough support for AMD GPUs.
 
 This is an effort to collage together a suite of model running programs, and get a voice-to-voice assistant, via voice-to-text, text-to-text, and text-to-voice.
 
-All with an eye towards AMD support.
+All with an eye towards easier usage of existing AMD support.
 
 ---
 ## Current capabilities
