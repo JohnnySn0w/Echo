@@ -11,10 +11,12 @@ Many have, at most, rough support for AMD GPUs.
 
 This is an effort to collage together a suite of model running programs, and get a voice-to-voice assistant, via voice-to-text, text-to-text, and text-to-voice.
 
+All with an eye towards AMD support.
+
 ---
 ## Current capabilities
 - [x] End to end, voice-to-voice.
-- [x] Assistance with getting ROCm drivers and custom builds for whisper.cpp/llama.cpp that support ROCm dGPUs
+- [x] Assistance with getting ROCm drivers and custom builds for whisper.cpp/llama.cpp that support ROCm compatible GPUs
 
 Benchmarks are located [here](https://github.com/JohnnySn0w/Echo/blob/master/benchmarks), you are more than welcome to submit yours.
 
