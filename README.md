@@ -1,14 +1,35 @@
+<p align="center">
+  <img src="https://github.com/waldyr/Sublime-Installer/blob/master/Echo.webp" alt="Emoji Dryad, Echo"/>
+</p>
+
+
 # Echo - full AMD support, completely-local-compute, AI assistant
 
-There are an incredible plethora of current AI tools, some very high level, like transformers.
+There is incredible plethora of current AI tools, some very high level.
 
 Many have, at most, third class support for AMD GPUs. Even with ROCm being out as long as it has.
 
 This is an effort to collage together a suite of model running programs, and get a voice-to-voice assistant, via voice-to-text, text-to-text, and text-to-voice.
 
+---
+## Current capabilities
+- [x] End to end, voice-to-voice.
+- [x] Assistance with getting ROCm drivers and custom builds for whisper.cpp/llama.cpp that support ROCm dGPUs
+
+Benchmarks are located [here](https://github.com/JohnnySn0w/Echo/benchmarks), are you are more than welcome to submit yours.
+
+## Goals
+- [ ] Load piper into VRAM for persistence (remove model load time)
+- [ ] Setup Piper to use AMD GPU(requires custom builds of underlying libs like onnxruntime)
+- [ ] More naturalistic responses in the voice output
+- [ ] Implement usage of command functionality from whisper.cpp
+- [ ] Potentially dockerize
+- [ ] Fine tuning parameters of various components to optimize processing times
+- [ ] Bots
+- [ ] Windows implementation
 
 ## Setup
-First, you need to be on linux, ROCm doesn't have good, if any, support on windows at the moment. If you're here, you might already know it's primarily supported on Redhat, SUSE, and Debian. What you might not know is other distros, like Arch, [do support it through user repos](https://github.com/rocm-arch/rocm-arch).
+First, you need to be on linux. Windows implementation is TODO.If you're here, you might already know it's primarily supported on Redhat, SUSE, and Debian. What you might not know is other distros, like Arch, [do support it through user repos](https://github.com/rocm-arch/rocm-arch).
 
 Once you have ROCm properly installed you can progress.
 
