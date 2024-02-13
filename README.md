@@ -1,5 +1,5 @@
 <p align="center">
-  <img height=auto width=25% src="https://github.com/JohnnySn0w/Echo/blob/master/mascot_images/Echo.png" alt="Emoji Dryad, Echo"/>
+  <img height=auto width=25% src="https://github.com/JohnnySn0w/Echo/blob/master/mascot_images/Echo.png" alt="Emoji Oread, Echo"/>
 </p>
 
 
@@ -7,7 +7,7 @@
 
 There is incredible plethora of current AI tools, some very high level.
 
-Many have, at most, third class support for AMD GPUs. Even with ROCm being out as long as it has.
+Many have, at most, rough support for AMD GPUs.
 
 This is an effort to collage together a suite of model running programs, and get a voice-to-voice assistant, via voice-to-text, text-to-text, and text-to-voice.
 
