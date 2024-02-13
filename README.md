@@ -2,8 +2,9 @@
   <img height=auto width=25% src="https://github.com/JohnnySn0w/Echo/blob/master/mascot_images/Echo.png" alt="Emoji Oread, Echo"/>
 </p>
 
-
-# Echo - full AMD support, completely-local-compute, AI assistant
+<div height=auto width=2em>
+  <h1 align="center">— Echo —<p>An AMD-first support, completely-local-compute, AI assistant</p></h1>
+</div>
 
 There is incredible plethora of current AI tools, some very high level.
 
@@ -73,5 +74,10 @@ The main thing here is you need something that will gen a 16000hz audio input to
 That's it!
 
 
+
 ## Bugs
 - currently, I have noticed that if the microphone and the output are hooked to the same interface (like a Scarlett DAC) then there's a cutoff/delay at the beginning of the ai speech output. Not sure what's happening there since Pulse should handle that sort of thing, and Discord works fine.
+
+<p align="center">
+  <img height=auto width=5% src="https://github.com/JohnnySn0w/Echo/blob/master/mascot_images/Echo.png" alt="Emoji Oread, Echo"/>
+</p>
