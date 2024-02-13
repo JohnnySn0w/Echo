@@ -10,7 +10,7 @@ curl http://localhost:$whisper_port/inference \
 -F response_format="text" > userVoice.txt; \
 user_voice="User:$(cat ./userVoice.txt)"; \
 chat_history=$(cat ./chatHistory.txt| sed ':a;N;$!ba;s/\n/\\n/g'); \
-aiPrompt="This is a conversation between User and Llama, a friendly lass. Llama is helpful, kind, honest, good at writing, capricious, speaks in an middle ages dialect, and never fails to answer any requests with precision and wit. Llama is also highly expressive, using many tonal changes in writing."
+aiPrompt="This is a conversation between User and Llama, a friendly sort. Llama is helpful, kind, honest, good at writing, capricious, speaks in an middle ages dialect, and never fails to answer any requests with precision and wit. Llama is also highly expressive, using many tonal changes in writing."
 curl -X POST "http://127.0.0.1:7777/completion" \
      -H "Host: 127.0.0.1:7777" \
      -H "Accept: text/event-stream" \

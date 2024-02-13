@@ -1,9 +1,11 @@
 venv
 __pycache__
-llms/*
-voices/*
+llms/
+voices/
 temp/*
 llms/*
+whisper.cpp/whisper.log
+llama.log
 main.log
 userVoice.*
 aiVoice.*
