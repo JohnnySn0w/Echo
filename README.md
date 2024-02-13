@@ -16,7 +16,7 @@ This is an effort to collage together a suite of model running programs, and get
 - [x] End to end, voice-to-voice.
 - [x] Assistance with getting ROCm drivers and custom builds for whisper.cpp/llama.cpp that support ROCm dGPUs
 
-Benchmarks are located [here](https://github.com/JohnnySn0w/Echo/benchmarks), are you are more than welcome to submit yours.
+Benchmarks are located [here](https://github.com/JohnnySn0w/Echo/blob/master/benchmarks), you are more than welcome to submit yours.
 
 ## Goals
 - [ ] Load piper into VRAM for persistence (remove model load time)
