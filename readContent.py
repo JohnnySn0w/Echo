@@ -4,6 +4,8 @@ import json
 new_file_path = './curlResponse.txt'
 chat_history = 'chatHistory.txt'
 
+talk_phrases = ["<|im_end|>","<|im_start|>"]
+
 # Define a function to parse the new file, extract JSON content, and concatenate it
 def parse_json_and_concatenate(file_path):
     # Initialize a variable to hold the concatenated content
@@ -30,7 +32,7 @@ def parse_json_and_concatenate(file_path):
                     json_data = json.loads(clean_line)
                     # Assuming 'content' is the key for the text we want to concatenate
                     if 'content' in json_data:
-                        if json_data['content'] != '<|im_end|>':
+                        if json_data['content'] not in talk_phrases:
                             concatenated_content += json_data['content']
                 except json.JSONDecodeError as e:
                     # Handle possible JSON decoding error
