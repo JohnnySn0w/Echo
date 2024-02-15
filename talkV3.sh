@@ -9,8 +9,8 @@ curl http://localhost:$whisper_port/inference \
 -F temperature_inc="0.2" \
 -F response_format="text" > userVoice.txt;
 
-user_voice="User:$(cat ./userVoice.txt)"; \
-chat_history=$(cat ./chatHistory.txt| sed ':a;N;$!ba;s/\n/\\n/g'); \
+user_voice="User:$(cat ./userVoice.txt | sed 's/"/`/g')"; \
+chat_history=$(cat ./chatHistory.txt | sed ':a;N;$!ba;s/\n/\\n/g; s/"/`/g'); \
 aiPrompt="This is a conversation between User and Llama, a friendly sort. Llama is helpful, kind, honest, good at writing, capricious, and never fails to answer any requests with precision. Llama is also highly expressive, using many tonal changes in writing.";
 
 
@@ -43,4 +43,4 @@ curl -X POST "http://127.0.0.1:7777/completion" \
 # time $(echo $(python ./readContent.py) | piper --model ./voices/en_GB-alba-medium.onnx --output_file ./aiVoice.wav;);
 time $(echo $(python ./readContent.py) | piper --model ./voices/en_US-kusal-medium.onnx --output_file ./aiVoice.wav;);
 echo "User:$(cat userVoice.txt)" >> chatHistory.txt;\
-echo "Llama:$(cat response.txt)" >> chatHistory.txt;
+echo "Echo:$(cat response.txt)" >> chatHistory.txt;

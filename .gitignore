@@ -5,8 +5,7 @@ voices/
 temp/*
 llms/*
 whisper.cpp/whisper.log
-llama.log
-main.log
+*.log
 userVoice.*
 aiVoice.*
 curlResponse.txt

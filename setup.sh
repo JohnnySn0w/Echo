@@ -1,7 +1,10 @@
 #!/bin/bash
-python -m venv venv
-source ./venv/bin/activate
-python -m pip install -r requirements.txt;
-mkdir llms voices;
+pipx install piper-tts 
+if [[ ! -d llms ]]; then
+  mkdir llms
+fi
+if [[ ! -d voices ]]; then
+  mkdir voices;
+fi
 echo "Directories ready for downloads";
 ./buildAMD.sh

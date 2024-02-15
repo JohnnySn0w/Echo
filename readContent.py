@@ -33,7 +33,7 @@ def parse_json_and_concatenate(file_path):
                     # Assuming 'content' is the key for the text we want to concatenate
                     if 'content' in json_data:
                         if json_data['content'] not in talk_phrases:
-                            concatenated_content += json_data['content']
+                            concatenated_content += json_data['content'].replace('"', '`')
                 except json.JSONDecodeError as e:
                     # Handle possible JSON decoding error
                     print(f"Error parsing JSON: {e}")

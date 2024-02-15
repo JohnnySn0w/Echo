@@ -38,29 +38,28 @@ First, you (probably) need to be on linux. If you're here, you might already kno
 
 Second, you'll (probably) want `ffmpeg` for the `voice_query.sh` script. You don't necessarily need to use `ffmpeg`, `arecord` or `parec` would also work. You just something that will generate 16000hz .wav files from your microphone.
 
+Third, have an installation of [pipx](https://github.com/pypa/pipx?tab=readme-ov-file#install-pipx)
+
+
 ### Build & Ship
+1. Install piper-tts via `pipx`, or into a venv. `pipx` is certainly more convenient.
+
 1. Kick off the building of the various components with
 ```sh
 ./setup.sh;
 ```
 This script:
-- Installs all the python libs I have in my project venv. No guarantees this will work for you, have not even tested if most of them are necessary. I experimented with a lot of different tools when getting this going.
 - Makes directories that will need to be **manually** filled by you with appropriate models
 - Builds the whisper.cpp and llama.cpp models. For llama.cpp you will probably want to either rebuild with clblast flags if your gpu isn't on the rocm compat list. Check [here](https://docs.amd.com/en/docs-5.4.3/release/gpu_os_support.html#gpu-support-table) for a comprehensive list of gpus rocm supports. Use the llvm target that you need, and modify the buildAMD.sh script to get that building for your gpu.
 
 
-2. Get into the venv
-```sh
-source ./venv/bin/activate;
-```
-
-
-3. Download models for the program to use.
+2. Download models for the program to use.
   - llama.cpp: [instructions here](https://github.com/ggerganov/llama.cpp/blob/master/README.md#obtaining-and-using-the-facebook-llama-2-model) >> `.gguf` goes into `llms` folder
   - whisper.cpp: [instructions here](https://github.com/ggerganov/whisper.cpp/blob/master/models/README.md) >> `.bin` goes into `./whisper.cpp/models` folder
   - piper: [instructions here](https://github.com/rhasspy/piper/blob/master/README.md#usage) >> `.onnx` and `.onnx.json` go into `voices` folder
 
-4. If you aren't comfortable with locating processes and terminating them manually, *then don't run this script*. Instead you can run each command in a separate terminal tab and it will also work. Also, make sure to replace model names with the models you downloaded.
+
+3. If you aren't comfortable with locating processes and terminating them manually, *then don't run this script*. Instead you can run each command in a separate terminal tab and it will also work. Also, make sure to replace model names with the models you downloaded.
 
 > individual commands
 ```sh
@@ -75,7 +74,7 @@ runAMD.sh;
 
 
 
-5. Finally, you can trigger a voice input/output using:
+4. Finally, you can trigger a voice input/output using:
 ```sh
 voice_query.sh; paplay ./aiVoice.wav;
 ```
