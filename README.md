@@ -43,8 +43,9 @@ Third, have an installation of [pipx](https://github.com/pypa/pipx?tab=readme-ov
 
 ### Build & Ship
 1. Install piper-tts via `pipx`, or into a venv. `pipx` is certainly more convenient.
+   * There are some issues with a recent swap on semantic versioning for piper-tts. A temp workaround has been found thanks to nickolay under [piper-phonemize issue-14](https://github.com/rhasspy/piper-phonemize/issues/14#issuecomment-1837289540)
 
-1. Kick off the building of the various components with
+2. Kick off the building of the various components with
 ```sh
 ./setup.sh;
 ```

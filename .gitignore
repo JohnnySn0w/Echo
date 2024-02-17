@@ -11,3 +11,6 @@ aiVoice.*
 curlResponse.txt
 response.txt
 chatHistory.txt
+
+# MacOS Workaround for piper-tts and piper-phonemize version issue
+piper-phonemize
