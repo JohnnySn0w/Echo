@@ -85,6 +85,10 @@ The final output of this will be a .wav file, and you can trivially use whatever
 
 That's it!
 
+## Licensing
+whisper.cpp, piper, and llama.cpp are licensed under MIT license.
+
+The Echo mascot image was originally generated with the assistance of DALL·E 3. It was further edited by @JohnnySn0w.
 
 
 ## Bugs
