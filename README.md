@@ -3,7 +3,7 @@
 </p>
 
 <div height=auto width=2em>
-  <h1 align="center">— Echo —<p>An AMD-first, completely-local-compute, AI assistant</p></h1>
+  <h1 align="center">— Echo —<p>A completely-local-compute, AI assistant</p></h1>
 </div>
 
 A plethora of AI tools are currently available.
