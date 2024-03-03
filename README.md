@@ -8,21 +8,22 @@
 
 A plethora of AI tools are currently available.
 
-Many have, at most, rough support for AMD GPUs.
+Many have, at most, rough support for non-NVIDIA GPUs.
 
 This is an effort to collage together a suite of model running programs, and get a voice-to-voice assistant, via voice-to-text, text-to-text, and text-to-voice.
 
-All with an eye towards easier usage of existing AMD support.
+All with an eye towards easier usage of existing non-NVIDIA support.
 
 ---
 ## Current capabilities
 - [x] End to end, voice-to-voice.
 - [x] Assistance with getting ROCm drivers and custom builds for whisper.cpp/llama.cpp that support ROCm compatible GPUs
+- [x] All models are loaded into RAM/VRAM for quick access.
 
 Benchmarks are located [here](https://github.com/JohnnySn0w/Echo/blob/master/benchmarks), you are more than welcome to submit yours.
 
 ## Goals
-- [ ] 🏃 Load piper into VRAM for persistence (remove model load time)
+- [x] 🏃 Load piper into VRAM for persistence (remove model load time)
 - [ ] ⚙️ Setup piper to use AMD GPU (requires custom builds of underlying libs like onnxruntime)
 - [ ] 🗣️ More naturalistic responses in the voice output
 - [ ] 📝 Implement usage of command functionality from whisper.cpp
@@ -45,7 +46,12 @@ Third, have an installation of [pipx](https://github.com/pypa/pipx?tab=readme-ov
 1. Install piper-tts via `pipx`, or into a venv. `pipx` is certainly more convenient.
    * There are some issues with a recent swap on semantic versioning for piper-tts. A temp workaround has been found thanks to nickolay under [piper-phonemize issue-14](https://github.com/rhasspy/piper-phonemize/issues/14#issuecomment-1837289540)
 
-2. Kick off the building of the various components with
+2. In the repo, run 
+```sh
+git submodule init
+```
+
+3. Kick off the building of the various components with
 ```sh
 ./setup.sh;
 ```
@@ -54,13 +60,13 @@ This script:
 - Builds the whisper.cpp and llama.cpp models. For llama.cpp you will probably want to either rebuild with clblast flags if your gpu isn't on the rocm compat list. Check [here](https://docs.amd.com/en/docs-5.4.3/release/gpu_os_support.html#gpu-support-table) for a comprehensive list of gpus rocm supports. Use the llvm target that you need, and modify the buildAMD.sh script to get that building for your gpu.
 
 
-2. Download models for the program to use.
+4. Download models for the program to use.
   - llama.cpp: [instructions here](https://github.com/ggerganov/llama.cpp/blob/master/README.md#obtaining-and-using-the-facebook-llama-2-model) >> `.gguf` goes into `llms` folder
   - whisper.cpp: [instructions here](https://github.com/ggerganov/whisper.cpp/blob/master/models/README.md) >> `.bin` goes into `./whisper.cpp/models` folder
   - piper: [instructions here](https://github.com/rhasspy/piper/blob/master/README.md#usage) >> `.onnx` and `.onnx.json` go into `voices` folder
 
 
-3. If you aren't comfortable with locating processes and terminating them manually, *then don't run this script*. Instead you can run each command in a separate terminal tab and it will also work. Also, make sure to replace model names with the models you downloaded.
+5. If you aren't comfortable with locating processes and terminating them manually, *then don't run this script*. Instead you can run each command in a separate terminal tab and it will also work. Also, make sure to replace model names with the models you downloaded.
 
 > individual commands
 ```sh
@@ -75,7 +81,7 @@ runAMD.sh;
 
 
 
-4. Finally, you can trigger a voice input/output using:
+6. Finally, you can trigger a voice input/output using:
 ```sh
 voice_query.sh; paplay ./aiVoice.wav;
 ```
