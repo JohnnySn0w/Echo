@@ -56,6 +56,10 @@ This script:
   - llama.cpp: [instructions here](https://github.com/ggerganov/llama.cpp/blob/master/README.md#obtaining-and-using-the-facebook-llama-2-model) >> `.gguf` goes into `llms` folder
   - whisper.cpp: [instructions here](https://github.com/ggerganov/whisper.cpp/blob/master/models/README.md) >> `.bin` goes into `./whisper.cpp/models` folder
   - piper: [instructions here](https://github.com/rhasspy/piper/blob/master/README.md#usage) >> `.onnx` and `.onnx.json` go into `voices` folder
+or for some quick defaults, run
+```
+./defaultModels.sh
+```
 
 2. If you aren't comfortable with locating processes and terminating them manually, *then don't run this script*. Instead you can run each command in a separate terminal tab and it will also work. Also, make sure to replace model names with the models you downloaded.
 
