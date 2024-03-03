@@ -21,8 +21,21 @@ git submodule init
 git submodule update
 echo "Pulled submodules, building..."
 
+# Prompt the user
+echo "Do you want to download default models? (y/n)"
+read answer
+
+# Check the answer
+if [[ $answer = y* ]] || [[ $answer = Y* ]]; then
+  echo "Downloading default models..."
+  ./defaultModels.sh
+else
+  echo "Skipping download of default models."
+fi
+
+
 # Run build script
-./build.sh
+# ./build.sh
 
 # Setup Python virtual environment and install dependencies
 echo "Setting up Python virtual environment..."
