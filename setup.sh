@@ -35,7 +35,7 @@ fi
 
 
 # Run build script
-# ./build.sh
+./build.sh
 
 # Setup Python virtual environment and install dependencies
 echo "Setting up Python virtual environment..."

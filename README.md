@@ -68,7 +68,7 @@ python -m piper.http_server -m ../../../voices/en_US-kusal-medium.onnx
 ```
 > single command
 ```sh
-runAMD.sh;
+run.sh;
 ```
 
 
