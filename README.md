@@ -8,21 +8,22 @@
 
 A plethora of AI tools are currently available.
 
-Many have, at most, rough support for AMD GPUs.
+Many have, at most, rough support for non-NVIDIA GPUs.
 
 This is an effort to collage together a suite of model running programs, and get a voice-to-voice assistant, via voice-to-text, text-to-text, and text-to-voice.
 
-All with an eye towards easier usage of existing AMD support.
+All with an eye towards easier usage of existing non-NVIDIA support.
 
 ---
 ## Current capabilities
 - [x] End to end, voice-to-voice.
 - [x] Assistance with getting ROCm drivers and custom builds for whisper.cpp/llama.cpp that support ROCm compatible GPUs
+- [x] All models are loaded into RAM/VRAM for quick access.
 
 Benchmarks are located [here](https://github.com/JohnnySn0w/Echo/blob/master/benchmarks), you are more than welcome to submit yours.
 
 ## Goals
-- [ ] 🏃 Load piper into VRAM for persistence (remove model load time)
+- [x] 🏃 Load piper into VRAM for persistence (remove model load time)
 - [ ] ⚙️ Setup piper to use AMD GPU (requires custom builds of underlying libs like onnxruntime)
 - [ ] 🗣️ More naturalistic responses in the voice output
 - [ ] 📝 Implement usage of command functionality from whisper.cpp
@@ -51,21 +52,27 @@ Third, have an installation of [pipx](https://github.com/pypa/pipx?tab=readme-ov
 ```
 This script:
 - Makes directories that will need to be **manually** filled by you with appropriate models
+- Pulls in the submodules
 - Builds the whisper.cpp and llama.cpp models. For llama.cpp you will probably want to either rebuild with clblast flags if your gpu isn't on the rocm compat list. Check [here](https://docs.amd.com/en/docs-5.4.3/release/gpu_os_support.html#gpu-support-table) for a comprehensive list of gpus rocm supports. Use the llvm target that you need, and modify the buildAMD.sh script to get that building for your gpu.
 
 
-2. Download models for the program to use.
+3. Download models for the program to use.
   - llama.cpp: [instructions here](https://github.com/ggerganov/llama.cpp/blob/master/README.md#obtaining-and-using-the-facebook-llama-2-model) >> `.gguf` goes into `llms` folder
   - whisper.cpp: [instructions here](https://github.com/ggerganov/whisper.cpp/blob/master/models/README.md) >> `.bin` goes into `./whisper.cpp/models` folder
   - piper: [instructions here](https://github.com/rhasspy/piper/blob/master/README.md#usage) >> `.onnx` and `.onnx.json` go into `voices` folder
+or for some quick defaults, run
+```
+./defaultModels.sh
+```
 
-
-3. If you aren't comfortable with locating processes and terminating them manually, *then don't run this script*. Instead you can run each command in a separate terminal tab and it will also work. Also, make sure to replace model names with the models you downloaded.
+4. If you aren't comfortable with locating processes and terminating them manually, *then don't run this script*. Instead you can run each command in a separate terminal tab and it will also work. Also, make sure to replace model names with the models you downloaded.
 
 > individual commands
 ```sh
-nohup ./whisper.cpp/server -m ./whisper.cpp/models/ggml-large-v3-q5_0.bin --port 6666 --no-timestamps > ./whisper.cpp/whisper.log &
-nohup ./llama.cpp/server -m ./llms/capybarahermes-2.5-mistral-7b.Q4_K_M.gguf -ngl 1000 --port 7777 > ./llama.cpp/llama.log &
+./whisper.cpp/server -m ./whisper.cpp/models/ggml-large-v3-q5_0.bin --port 6666 --no-timestamps
+./llama.cpp/server -m ./llms/capybarahermes-2.5-mistral-7b.Q4_K_M.gguf -ngl 1000 --port 7777
+# in a venv in piper/src/python_run
+python -m piper.http_server -m ../../../voices/en_US-kusal-medium.onnx
 ```
 > single command
 ```sh
@@ -73,9 +80,7 @@ runAMD.sh;
 ```
 
 
-
-
-4. Finally, you can trigger a voice input/output using:
+5. Finally, you can trigger a voice input/output using:
 ```sh
 voice_query.sh; paplay ./aiVoice.wav;
 ```
