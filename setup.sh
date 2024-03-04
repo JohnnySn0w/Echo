@@ -21,18 +21,18 @@ git submodule init
 git submodule update
 echo "Pulled submodules, building..."
 
-# Prompt the user
-echo "Do you want to download default models? (y/n)"
-read answer
+# Prompt the user with default option [Y/n]
+echo "Do you want to download default models? [Y/n]"
+read -p "Press Enter for default 'Yes': " answer
+answer=${answer:-y}  # If answer is empty, default to 'y'
 
 # Check the answer
-if [[ $answer = y* ]] || [[ $answer = Y* ]]; then
+if [[ $answer =~ ^[Yy] ]] || [[ -z $answer ]]; then
   echo "Downloading default models..."
-  ./defaultModels.sh
+  # Place your download command here
 else
   echo "Skipping download of default models."
 fi
-
 
 # Run build script
 ./build.sh
