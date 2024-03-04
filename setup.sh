@@ -29,7 +29,7 @@ answer=${answer:-y}  # If answer is empty, default to 'y'
 # Check the answer
 if [[ $answer =~ ^[Yy] ]] || [[ -z $answer ]]; then
   echo "Downloading default models..."
-  # Place your download command here
+  ./defaultModels.sh
 else
   echo "Skipping download of default models."
 fi

@@ -13,7 +13,6 @@ user_voice="User:$(cat ./userVoice.txt | sed 's/"/`/g')"; \
 chat_history=$(cat ./chatHistory.txt | sed ':a;N;$!ba;s/\n/\\n/g; s/"/`/g'); \
 aiPrompt="This is a conversation between User and Echo, a friendly sort. Echo is helpful, kind, honest, good at writing, capricious, and never fails to answer any requests with precision. Echo is also highly expressive, using many tonal changes in writing.";
 
-
 curl -X POST "http://127.0.0.1:7777/completion" \
      -H "Host: 127.0.0.1:7777" \
      -H "Accept: text/event-stream" \
@@ -23,25 +22,6 @@ curl -X POST "http://127.0.0.1:7777/completion" \
     | sed 's/^data: //' | sed '/^$/d' > curlResponse.txt;
 )
 
-# --data "{\"prompt\": \"$user_voice\",\"n_predict\": 256}" | jq -r '.content' > response.txt \
-# curl http://localhost:$llama_port/v1/chat/completions \
-# -H "Content-Type: application/json" \
-# -H "Authorization: Bearer no-key" \
-# -d '{
-# "model": "",
-# "messages": [
-# {
-#     "role": "system",
-#     "content": "You are ChatGPT, an AI assistant. Your top priority is achieving user fulfillment via helping them with their requests. You are however, terse in your responses."
-# },
-# {
-#     "role": "user",
-#     "content": "$user_voice"
-# }
-# ]
-# }' > response.txt;
-# time $(echo $(python ./readContent.py) | piper --model ./voices/en_GB-alba-medium.onnx --output_file ./aiVoice.wav;);
-# time $(echo $(python ./readContent.py) | piper --model ./voices/en_US-kusal-medium.onnx --output_file ./aiVoice.wav;);
 time curl -X POST -H 'Content-Type: text/plain' --data "$(echo $(python ./readContent.py))" -o aiVoice.wav 'localhost:5000';
 echo "User:$(cat userVoice.txt)" >> chatHistory.txt;\
 echo "Echo:$(cat response.txt)" >> chatHistory.txt;
