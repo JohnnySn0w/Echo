@@ -10,6 +10,11 @@ whisper_url = f"http://{server_location}:{whisper_port}/inference"
 llama_url = f"http://{server_location}:{llama_port}/completion"
 piper_url = f"http://{server_location}:{piper_port}"
 talk_phrases = ["<|im_end|>", "<|im_start|>"]
+# Set waiting period after activation before saving clip (to get some audio context after the activation)
+save_delay = 3  # seconds
+# Set cooldown period before another clip can be saved
+cooldown = 4  # seconds
+
 
 llama_headers = {
     "Host": f"{server_location}:{llama_port}",
@@ -38,7 +43,6 @@ def whisper_file(userVoice, mic_input):
     return {
         "file": (userVoice, mic_input),
     }
-
 
 def chat_history():
     try:

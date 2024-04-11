@@ -40,7 +40,7 @@ from openwakeword.model import Model
 from readContent import parse_json_and_concatenate
 
 
-def setup_audio_interface(chunk_size: int) -> tuple[pyaudio.Stream, pyaudio.PyAudio]:
+def get_audio_interface(chunk_size: int) -> tuple[pyaudio.Stream, pyaudio.PyAudio]:
     # Get microphone stream
     FORMAT = pyaudio.paInt16
     CHANNELS = 1
@@ -64,7 +64,7 @@ def get_mic_input_result(
 
 
 def get_user_voice_input(owwModel: openwakeword.model.Model) -> BytesIO:
-    # Capture total of 5 seconds, with the microphone audio associated with the
+    # Capture total of 8 seconds, with the microphone audio associated with the
     # activation around the ~4 second point
     audio_context = np.array(
         list(owwModel.preprocessor.raw_data_buffer)[-16000 * 8 :]
@@ -75,7 +75,7 @@ def get_user_voice_input(owwModel: openwakeword.model.Model) -> BytesIO:
     return mic_input_data
 
 
-def get_llm_response() -> requests.Response:
+def gen_llm_response() -> requests.Response:
     llama_body_json = json.dumps(config.llama_body(userVoice))
 
     llama_response = requests.post(
@@ -97,7 +97,7 @@ def gen_ai_voice(piper_content: str) -> requests.Response:
     )
 
 
-def update_history(userVoice: str, aiVoice: str) -> None:
+def update_chat_history(userVoice: str, aiVoice: str) -> None:
     with open("chatHistory.txt", "a") as chat_history:
         chat_history.write(f"User: {userVoice}")
         chat_history.write(f"Echo: {aiVoice}\n")
@@ -125,28 +125,35 @@ def respond_with_voice(
     return piper_response.content
 
 
-# Run capture loop, checking for hotwords
-if __name__ == "__main__":
-    args = gibbe_args()
-    # Create output directory if it does not already exist
-    if not os.path.exists(args.output_dir):
-        os.mkdir(args.output_dir)
-    # necessary as it grabs some interpretive models + the demo wakeset
-    openwakeword.utils.download_models()
+def setup_components():
+    components = dict()
+    components['args'] = gibbe_args()
+    setup_audio_interface(components['args'].chunk_size)
+    return components
 
-    owwModel = Model(
+def gen_oww_model(args):
+    return Model(
         wakeword_models=[args.model_path],
         enable_speex_noise_suppression=args.noise_suppression,
         vad_threshold=args.vad_threshold,
         inference_framework=args.inference_framework,
     )
-    mic_stream, audio_interface = setup_audio_interface(args.chunk_size)
 
-    # Set waiting period after activation before saving clip (to get some audio context after the activation)
-    save_delay = 3  # seconds
+def setup_infrastructure():
+    # Create output directory if it does not already exist
+    if not os.path.exists(args.output_dir):
+            os.mkdir(args.output_dir)
+    # necessary as it grabs some interpretive models + the demo wakeset
+    openwakeword.utils.download_models()
 
-    # Set cooldown period before another clip can be saved
-    cooldown = 4  # seconds
+# Run capture loop, checking for hotwords
+if __name__ == "__main__":
+    setup_infrastructure()
+    args = gibbe_args()
+    # components = setup_components()
+    owwModel = gen_oww_model(args)
+    mic_stream, audio_interface = get_audio_interface(args.chunk_size)
+
     # Predict continuously on audio stream
     last_save = time.time()
     activation_times = collections.defaultdict(list)
@@ -162,9 +169,10 @@ if __name__ == "__main__":
 
             if (
                 activation_times.get(model)
-                and (time.time() - last_save) >= cooldown
-                and (time.time() - activation_times.get(model)[0]) >= save_delay
+                and (time.time() - last_save) >= config.cooldown
+                and (time.time() - activation_times.get(model)[0]) >= config.save_delay
             ):
+                # TODO: do we actually need a backoff timer?
                 last_save = time.time()
                 activation_times[model] = []
                 detect_time = datetime.datetime.now().strftime("%Y_%m_%d_%H_%M_%S")
@@ -181,11 +189,11 @@ if __name__ == "__main__":
                 )
                 mic_input_data.close()
 
-                response_string = get_llm_response()
+                response_string = gen_llm_response()
                 piper_content = parse_json_and_concatenate(
                     response_string
                 )
-                update_history(userVoice.text, piper_content)
+                update_chat_history(userVoice.text, piper_content)
                 # Send the POST request with the content from readContent.py as the body
                 piper_response = gen_ai_voice(piper_content)
                 print(piper_content)
