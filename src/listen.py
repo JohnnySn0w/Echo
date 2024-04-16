@@ -23,6 +23,7 @@ import platform
 import subprocess
 import sys
 import time
+import argparse
 from io import BytesIO, StringIO
 
 # Related third-party imports
@@ -131,7 +132,20 @@ def setup_components():
     setup_audio_interface(components['args'].chunk_size)
     return components
 
-def gen_oww_model(args):
+def gen_oww_model(args: argparse.Namespace) -> Model:
+    """
+    Generate an OWW model based on the provided arguments.
+
+    Args:
+        args: An object containing the following attributes:
+            model_path (str): The path to the wakeword model.
+            noise_suppression (bool): Whether to enable Speex noise suppression.
+            vad_threshold (float): The threshold for voice activity detection.
+            inference_framework (str): The framework to use for inference.
+
+    Returns:
+        Model: The generated OWW model.
+    """
     return Model(
         wakeword_models=[args.model_path],
         enable_speex_noise_suppression=args.noise_suppression,
