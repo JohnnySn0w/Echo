@@ -100,8 +100,8 @@ def gen_ai_voice(piper_content: str) -> requests.Response:
 
 def update_chat_history(userVoice: str, aiVoice: str) -> None:
     with open("chatHistory.txt", "a") as chat_history:
-        chat_history.write(f"User: {userVoice}")
-        chat_history.write(f"Echo: {aiVoice}\n")
+        chat_history.write(f"{config.userName}: {userVoice}")
+        chat_history.write(f"{config.aiName}: {aiVoice}\n")
 
 
 def respond_with_voice(
