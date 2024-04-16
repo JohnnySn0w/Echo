@@ -23,6 +23,7 @@ import platform
 import subprocess
 import sys
 import time
+import argparse
 from io import BytesIO, StringIO
 
 # Related third-party imports
@@ -131,7 +132,7 @@ def setup_components():
     setup_audio_interface(components['args'].chunk_size)
     return components
 
-def gen_oww_model(args):
+def gen_oww_model(args: argparse.Namespace):
     return Model(
         wakeword_models=[args.model_path],
         enable_speex_noise_suppression=args.noise_suppression,
@@ -139,7 +140,7 @@ def gen_oww_model(args):
         inference_framework=args.inference_framework,
     )
 
-def setup_infrastructure():
+def setup_infrastructure(args: argparse.Namespace):
     # Create output directory if it does not already exist
     if not os.path.exists(args.output_dir):
             os.mkdir(args.output_dir)
@@ -148,8 +149,8 @@ def setup_infrastructure():
 
 # Run capture loop, checking for hotwords
 if __name__ == "__main__":
-    setup_infrastructure()
     args = gibbe_args()
+    setup_infrastructure(args)
     # components = setup_components()
     owwModel = gen_oww_model(args)
     mic_stream, audio_interface = get_audio_interface(args.chunk_size)
