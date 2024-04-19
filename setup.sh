@@ -47,7 +47,7 @@ echo "Installing Python dependencies..."
 cd piper/src/python_run || exit
 pip install -r requirements.txt
 pip install -r requirements_http.txt
-
-
+pip install openwakeword
+pip install pyaudio
 
 echo "Setup complete."
