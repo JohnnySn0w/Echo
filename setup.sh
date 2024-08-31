@@ -22,8 +22,7 @@ git submodule update
 echo "Pulled submodules, building..."
 
 # Prompt the user with default option [Y/n]
-echo "Do you want to download default models? [Y/n]"
-read -p "Press Enter for default 'Yes': " answer
+read -p "Do you want to download default models? [Y/n]: " answer
 answer=${answer:-y}  # If answer is empty, default to 'y'
 
 # Check the answer
