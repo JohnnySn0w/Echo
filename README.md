@@ -35,9 +35,9 @@ Benchmarks are located [here](https://github.com/JohnnySn0w/Echo/blob/master/ben
 ## Setup
 
 ### Prerequisites
-First, you (probably) need to be on linux. If you're here, you might already know it's primarily supported on Redhat, SUSE, and Debian. What you might not know is other distros, like Arch, [do support it through user repos](https://github.com/rocm-arch/rocm-arch).
+First, you (probably) need to be on linux. If you're here, you might already know ROCm is primarily supported on Redhat, SUSE, and Debian. What you might not know is other distros, like Arch, [do support it through user repos](https://github.com/rocm-arch/rocm-arch).
 
-Second, you'll (probably) want `ffmpeg` for the `voice_query.sh` script. You don't necessarily need to use `ffmpeg`, `arecord` or `parec` would also work. You just something that will generate 16000hz .wav files from your microphone.
+You're going to need to have Python 3.11 as the system version for the install. After that, you can change it. The recommended way to handle mutliple python versions is something like [pyenv](https://github.com/pyenv/pyenv)
 
 
 ### Build & Ship
@@ -46,8 +46,8 @@ Second, you'll (probably) want `ffmpeg` for the `voice_query.sh` script. You don
 ./setup.sh;
 ```
 This script:
-- Makes directories that will need to be **manually** filled by you with appropriate models
-- Optionally downloads default models
+- Makes directories that are filled with appropriate models
+- Optionally downloads default models (if you skip this, see 1b)
 - Pulls in the submodules
 - Builds the whisper.cpp and llama.cpp models. For llama.cpp you will probably want to either rebuild with clblast flags if your gpu isn't on the rocm compat list. Check [here](https://docs.amd.com/en/docs-5.4.3/release/gpu_os_support.html#gpu-support-table) for a comprehensive list of gpus rocm supports. Use the llvm target that you need, and modify the buildAMD.sh script to get that building for your gpu.
 
@@ -61,28 +61,12 @@ or for some quick defaults, run
 ./defaultModels.sh
 ```
 
-2. If you aren't comfortable with locating processes and terminating them manually, *then don't run this script*. Instead you can run each command in a separate terminal tab and it will also work. Also, make sure to replace model names with the models you downloaded.
-
-> individual commands
-```sh
-./whisper.cpp/server -m ./whisper.cpp/models/ggml-large-v3-q5_0.bin --port 6666 --no-timestamps
-./llama.cpp/server -m ./llms/capybarahermes-2.5-mistral-7b.Q4_K_M.gguf -ngl 1000 --port 7777
-# in a venv in piper/src/python_run
-python -m piper.http_server -m ../../../voices/en_US-kusal-medium.onnx
-```
-> single command
+2. Load everything up with
 ```sh
 run.sh;
 ```
 
-
-3. Finally, you can trigger a voice input/output using:
-```sh
-voice_query.sh; paplay ./aiVoice.wav;
-```
-The main thing here is you need something that will gen a 16000hz audio input to send through `talkV3.sh`. I prefer ffmpeg because I can hit q when I'm done. 
-
-The final output of this will be a .wav file, and you can trivially use whatever to play the assistant's response.
+Make sure to use the 'Echo' wakeword so it knows you're talking.
 
 That's it!
 
