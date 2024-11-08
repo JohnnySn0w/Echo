@@ -8,8 +8,6 @@
 
 A plethora of AI tools are currently available.
 
-Many have, at most, rough support for non-NVIDIA GPUs.
-
 This is an effort to collage together a suite of model running programs, and get a voice-to-voice assistant, via voice-to-text, text-to-text, and text-to-voice.
 
 All with an eye towards easier usage of existing non-NVIDIA support.
