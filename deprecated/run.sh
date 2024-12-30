@@ -1,1 +1,0 @@
-echo $(llm -m l2c 'whassup') | piper --model ./voices/en_US-kusal-medium.onnx --output_file welcome.wav; mpv response.wav
