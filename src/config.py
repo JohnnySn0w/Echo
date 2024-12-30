@@ -2,13 +2,20 @@
 # Otherwise, the ai will beef with you about what its name is.
 aiName = "Echo"
 userName = "User"
-server_location = "localhost"
+#change these if running externally
+piper_server_location = "localhost"
+llama_server_location = "localhost"
+whisper_server_location = "localhost"
 whisper_port = "6666"
 llama_port = "7777"
 piper_port = "5000"
+# swap these out if running externally
 whisper_url = f"http://{server_location}:{whisper_port}/inference"
 llama_url = f"http://{server_location}:{llama_port}/completion"
-piper_url = f"http://{server_location}:{piper_port}"
+piper_url = f"http://{piper_server_location}:{piper_port}"
+# swap these in if running externally
+# whisper_url = f"http://{whisper_server_location}/inference"
+# llama_url = f"http://{llama_server_location}/completion"
 talk_phrases = ["<|im_end|>", "<|im_start|>"]
 # Set waiting period after activation before saving clip (to get some audio context after the activation)
 save_delay = 3  # seconds
@@ -17,7 +24,10 @@ cooldown = 4  # seconds
 
 
 llama_headers = {
-    "Host": f"{server_location}:{llama_port}",
+    # swap this out if running externally
+    "Host": f"{llama_server_location}:{llama_port}",
+    # swap this in if running externally
+    # "Host": f"{llama_server_location}",
     "Accept": "text/event-stream",
     "Connection": "keep-alive",
     "Sec-GPC": "1",
@@ -41,7 +51,7 @@ echo_behavioral_prompt = f"You are now absolutely known only as {aiName}. You ab
 
 def whisper_file(userVoice, mic_input):
     return {
-        "file": (userVoice, mic_input),
+        "file": (userVoice, mic_input, 'audio/pcm'),
     }
 
 def chat_history():
