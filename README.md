@@ -10,7 +10,7 @@ A plethora of AI tools are currently available.
 
 This is an effort to collage together a suite of model running programs, and get a voice-to-voice assistant, via voice-to-text, text-to-text, and text-to-voice.
 
-All with an eye towards easier usage of existing non-NVIDIA support.
+[The grand goal of this project is to further the goal of a voice-to-voice interface. One that understands the multitude of contexts you exist in.](https://winter.snowis.me/the-echo-project/)
 
 ---
 ## Current capabilities
