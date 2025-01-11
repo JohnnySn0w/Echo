@@ -40,6 +40,7 @@ import config
 from openwakeword.model import Model
 from readContent import parse_json_and_concatenate
 
+session = requests.session()
 
 def get_audio_interface(chunk_size: int) -> tuple[pyaudio.Stream, pyaudio.PyAudio]:
     # Get microphone stream
@@ -79,7 +80,7 @@ def get_user_voice_input(owwModel: openwakeword.model.Model) -> BytesIO:
 def gen_llm_response() -> requests.Response:
     llama_body_json = json.dumps(config.llama_body(userVoice))
 
-    llama_response = requests.post(
+    llama_response = session.post(
         config.llama_url, headers=config.llama_headers, data=llama_body_json, timeout=30
     )
 
@@ -93,7 +94,7 @@ def gen_llm_response() -> requests.Response:
 
 
 def gen_ai_voice(piper_content: str) -> requests.Response:
-    return requests.post(
+    return session.post(
         config.piper_url, headers=config.piper_headers, data=piper_content
     )
 
@@ -183,7 +184,7 @@ if __name__ == "__main__":
                 )
 
                 mic_input_data = get_user_voice_input(owwModel)
-                userVoice = requests.post(
+                userVoice = session.post(
                     config.whisper_url,
                     files=config.whisper_file(config.userVoice, mic_input_data),
                     data=config.whisper_data,

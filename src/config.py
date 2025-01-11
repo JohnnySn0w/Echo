@@ -9,13 +9,14 @@ whisper_server_location = "localhost"
 whisper_port = "6666"
 llama_port = "7777"
 piper_port = "5000"
-# swap these out if running externally
-whisper_url = f"http://{server_location}:{whisper_port}/inference"
-llama_url = f"http://{server_location}:{llama_port}/completion"
-piper_url = f"http://{piper_server_location}:{piper_port}"
-# swap these in if running externally
-# whisper_url = f"http://{whisper_server_location}/inference"
-# llama_url = f"http://{llama_server_location}/completion"
+# swap these in if running internally
+# whisper_url = f"http://{server_location}:{whisper_port}/inference"
+# llama_url = f"http://{server_location}:{llama_port}/completion"
+# piper_url = f"http://{piper_server_location}:{piper_port}"
+# swap these out if running internally
+whisper_url = f"http://{whisper_server_location}/inference"
+llama_url = f"http://{llama_server_location}/completion"
+piper_url = f"http://{piper_server_location}"
 talk_phrases = ["<|im_end|>", "<|im_start|>"]
 # Set waiting period after activation before saving clip (to get some audio context after the activation)
 save_delay = 3  # seconds
