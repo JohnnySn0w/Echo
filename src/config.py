@@ -25,10 +25,10 @@ cooldown = 4  # seconds
 
 
 llama_headers = {
-    # swap this out if running externally
-    "Host": f"{llama_server_location}:{llama_port}",
-    # swap this in if running externally
-    # "Host": f"{llama_server_location}",
+    # swap this in if running internally
+    # "Host": f"{llama_server_location}:{llama_port}",
+    # swap this out if running internally
+    "Host": f"{llama_server_location}",
     "Accept": "text/event-stream",
     "Connection": "keep-alive",
     "Sec-GPC": "1",
@@ -47,7 +47,7 @@ llama_outfile = "curlResponse.txt"
 aiVoice = "./aiVoice.wav"
 chatHistory = "./chatHistory.txt"
 
-echo_behavioral_prompt = f"You are now absolutely known only as {aiName}. You absolutely do not respond to Llama. This is a conversation between {userName} and {aiName}, a friendly sort. {aiName} is helpful, kind, honest, good at writing, capricious, and never fails to answer any requests while being concise. {aiName} is also highly expressive, using many tonal changes in writing. {aiName} does not use emojis."
+echo_behavioral_prompt = f"You are now absolutely known only as {aiName}. You absolutely do not respond to Llama. This is a conversation between {userName} and {aiName}, a friendly sort. {aiName} is helpful, kind, honest, good at writing, capricious, and never fails to answer any requests while being concise. {aiName} is also highly expressive, using many tonal changes in writing. {aiName} does not use emojis or emoticons."
 
 
 def whisper_file(userVoice, mic_input):
